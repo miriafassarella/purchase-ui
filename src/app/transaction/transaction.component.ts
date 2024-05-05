@@ -1,4 +1,9 @@
+import { TransactionService } from './../transaction.service';
+
+
+
 import { Component, OnInit } from '@angular/core';
+
 
 
 
@@ -9,7 +14,7 @@ import { Component, OnInit } from '@angular/core';
 })
 
 
-export class TransactionComponent {
+export class TransactionComponent implements OnInit {
 
 
 
@@ -20,18 +25,20 @@ produits = [];
     {label:'Martin', value: '2'}
   ];
 
-  lancamentos = [
-    {produto: 'Stylo', direcao: 'Francis Larochelle', descricao: 'Comprado pelo setor educativo', number: '456783445'},
-    {produto: 'Dell Latitude 3510', direcao: 'Michelle Destremspes', descricao: 'Comprado pelo setor de TI', number: '877655454'},
-    {produto: 'Borracha', direcao: 'Martin', descricao: 'Comprado pelo setor educativo ', number: '98765656'},
-    {produto: 'Lexibar', direcao: 'Francis Larochelle', descricao: 'Comprado pelo setor de TI', number: '986556767'},
-    {produto: 'Antidote', direcao: 'Michelle Destremspes', descricao: 'Comprado pelo setor de TI', number: '4765568788'}
-  ];
+  transactions = [];
 
 
-  constructor() {
+  constructor(private transactionService: TransactionService) {
 
   }
 
+ngOnInit(): void {
+  this.list();
+}
+
+list(){
+  this.transactionService.list()
+  .then(transactions => this.transactions = transactions);
+}
 
 }

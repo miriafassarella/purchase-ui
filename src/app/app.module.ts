@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {HttpClientModule} from '@angular/common/http';
 
 import { TableModule } from 'primeng/table';
 import {InputTextModule} from 'primeng/inputtext';
@@ -16,11 +17,12 @@ import { AppComponent } from './app.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
+import { TransactionService } from './transaction.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TransactionComponent,
+    TransactionComponent
 
   ],
   imports: [
@@ -35,10 +37,12 @@ import { TooltipModule } from 'primeng/tooltip';
     TableModule,
     TooltipModule,
     MessageModule,
-    InputNumberModule
+    InputNumberModule,
+    HttpClientModule
 
   ],
-  providers: [],
+  providers: [TransactionService],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

@@ -43,7 +43,7 @@
 
   <div class="grid table">
     <div class="col-12">
-        <p-table [value]="lancamentos"  [paginator]="true" [rows]="3" [responsive]="true" [rowsPerPageOptions]="[2,3,5]" >
+        <p-table [value]="transactions"  [paginator]="true" [rows]="3" [responsive]="true" [rowsPerPageOptions]="[5,15,20]" >
             <ng-template pTemplate="header">
                 <tr>
                     <th>Produit</th>
@@ -53,23 +53,23 @@
                     <th class="col-valor-header"></th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-lancamento>
+            <ng-template pTemplate="body" let-transaction>
                 <tr>
                     <td>
                       <span class="p-column-title">Produit</span>
-                      {{ lancamento.produto }}
+                      {{ transaction.product.name }}
                     </td>
                     <td>
-                      <span class="p-column-title">Diretion</span>
-                      {{ lancamento.direcao }}
+                      <span class="p-column-title">Nom Acheteur</span>
+                      {{ transaction.school.name }}
                       </td>
                     <td class="col-data-content">
                       <span class="p-column-title">Description</span>
-                      {{ lancamento.descricao }}
+                      {{ transaction.product.description }}
                     </td>
                     <td class="col-data-content">
                       <span class="p-column-title">Prix</span>
-                      {{ lancamento.number }}
+                      {{ transaction.product.price }}
                     </td>
                     <td class="col-acoes">
                       <a pButton icon="pi pi-pencil" pTooltip="Modifier" tooltipPosition="top"></a>
