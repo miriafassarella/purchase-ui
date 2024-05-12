@@ -1,11 +1,6 @@
-import { TransactionService } from './../transaction.service';
-
-
-
-import { Component, OnInit } from '@angular/core';
-
-
-
+import { LazyLoadEvent } from 'primeng/api';
+import {TransactionFilter, TransactionService } from './../transaction.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-transaction',
@@ -16,7 +11,9 @@ import { Component, OnInit } from '@angular/core';
 
 export class TransactionComponent implements OnInit {
 
-
+  totalRecords = 0;
+  filter = new TransactionFilter();
+  @ViewChild('table') table: any;
 
 produits = [];
 
@@ -33,12 +30,28 @@ produits = [];
   }
 
 ngOnInit(): void {
-  this.list();
+
 }
 
-list(){
-  this.transactionService.list()
-  .then(transactions => this.transactions = transactions);
+list(page = 0): void{
+  this.filter.page = page;
+  this.transactionService.list(this.filter)
+  .then((result: any) => {
+    this.transactions = result.transactions;
+    this.totalRecords = result.total;
+  });
+}
+
+changePage(event: LazyLoadEvent){
+  const page = event!.first! / event!.rows!;
+  this.list(page);
+}
+
+erase(transaction: any){
+  this.transactionService.erase(transaction.id)
+  .then(()=>{
+    this.table.reset();
+  });
 }
 
 }

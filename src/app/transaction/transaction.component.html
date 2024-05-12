@@ -43,7 +43,9 @@
 
   <div class="grid table">
     <div class="col-12">
-        <p-table [value]="transactions"  [paginator]="true" [rows]="3" [responsive]="true" [rowsPerPageOptions]="[5,15,20]" >
+        <p-table [value]="transactions" [paginator]="true"
+        [rows]="filter.itemsPage" [lazy]="true" [totalRecords]="totalRecords"
+        (onLazyLoad)="changePage($event)" [responsive]="true"[showCurrentPageReport]="true" #table>
             <ng-template pTemplate="header">
                 <tr>
                     <th>Produit</th>
@@ -72,8 +74,8 @@
                       {{ transaction.product.price }}
                     </td>
                     <td class="col-acoes">
-                      <a pButton icon="pi pi-pencil" pTooltip="Modifier" tooltipPosition="top"></a>
-                      <button pButton icon="pi pi-trash" pTooltip="Effacer" tooltipPosition="top"></button>
+                      <button pButton icon="pi pi-trash" pTooltip="Effacer" tooltipPosition="top"
+                      (click)="erase(transaction)"></button>
                     </td>
 
                 </tr>
