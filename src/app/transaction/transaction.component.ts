@@ -1,6 +1,7 @@
-import { LazyLoadEvent } from 'primeng/api';
+import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import {TransactionFilter, TransactionService } from './../transaction.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { transition } from '@angular/animations';
 
 @Component({
   selector: 'app-transaction',
@@ -17,20 +18,19 @@ export class TransactionComponent implements OnInit {
 
 produits = [];
 
-  acheteurs= [
-    {label:'Francis', value: '1'},
-    {label:'Martin', value: '2'}
-  ];
+  schools= [];
 
   transactions = [];
 
 
-  constructor(private transactionService: TransactionService) {
-
-  }
+  constructor(
+    private transactionService: TransactionService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
 
 ngOnInit(): void {
-
+  this.listP();
+  this.listS();
 }
 
 list(page = 0): void{
@@ -47,11 +47,32 @@ changePage(event: LazyLoadEvent){
   this.list(page);
 }
 
+confirmExlusion(transition: any){
+  this.confirmationService.confirm({
+    message: 'Etes-vous sûr que vous voulez supprimer?',
+    accept: ()=> {
+      this.erase(transition);
+    }
+  })
+}
+
 erase(transaction: any){
+
   this.transactionService.erase(transaction.id)
   .then(()=>{
     this.table.reset();
+    this.messageService.add({ severity: 'success', detail: 'Transaction supprimée avec succès !!' })
+
   });
+}
+listP(): any{
+ return this.transactionService.listProducts()
+  .then((produits : any)=> {this.produits = produits.map((p: any) => ({label: p.name, value: p.id}))});
+}
+
+listS(): any {
+  this.transactionService.listSchools()
+  .then((schools : any)=> {this.schools = schools.map((p: any) => ({label: p.name, value: p.id}))})
 }
 
 }

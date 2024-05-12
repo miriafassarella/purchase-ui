@@ -17,6 +17,9 @@ export class TransactionService {
 
   transactionUrl = 'http://localhost:8080/transactions';
 
+  productUrl = 'http://localhost:8080/products';
+
+  schoolUrl = 'http://localhost:8080/schools';
 
   constructor(private http: HttpClient) { }
 
@@ -50,9 +53,18 @@ erase(id: number): Promise<any>{
   return firstValueFrom(
     this.http.delete(`${this.transactionUrl}/${id}`, { headers })
   )
+}
 
+listProducts(): Promise<any>{
+  const headers = new HttpHeaders();
+  return  this.http.get(`${this.productUrl}`, { headers })
+  .toPromise();
+}
 
-
+listSchools(): Promise<any>{
+  const headers = new HttpHeaders();
+  return  this.http.get(`${this.schoolUrl}`, { headers})
+  .toPromise();
 }
 }
 

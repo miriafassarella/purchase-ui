@@ -12,6 +12,11 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TabViewModule } from 'primeng/tabview';
 import {MessageModule} from 'primeng/message';
 import {InputNumberModule} from 'primeng/inputnumber';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
+
 
 import { AppComponent } from './app.component';
 import { TransactionComponent } from './transaction/transaction.component';
@@ -38,10 +43,12 @@ import { TransactionService } from './transaction.service';
     TooltipModule,
     MessageModule,
     InputNumberModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastModule,
+    ConfirmDialogModule
 
   ],
-  providers: [TransactionService],
+  providers: [TransactionService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]
 
 })

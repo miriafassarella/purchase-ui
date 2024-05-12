@@ -11,7 +11,7 @@
       </div>
       <div class="col-6 md:col-6 p-fluid">
         <label>Nom Acheteur</label>
-        <p-dropdown [options]="acheteurs" placeholder="Selecione" name="acheteur" ngModel [required]="true"></p-dropdown>
+        <p-dropdown [options]="schools" placeholder="Selecione" name="acheteur" ngModel [required]="true"></p-dropdown>
       </div>
       <div class="col-12 md:col-9 p-fluid">
         <label>Description</label>
@@ -75,7 +75,7 @@
                     </td>
                     <td class="col-acoes">
                       <button pButton icon="pi pi-trash" pTooltip="Effacer" tooltipPosition="top"
-                      (click)="erase(transaction)"></button>
+                      (click)="confirmExlusion(transaction)"></button>
                     </td>
 
                 </tr>
