@@ -1,7 +1,8 @@
+import { Product, School, Transaction } from './../core/model';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import {TransactionFilter, TransactionService } from './../transaction.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { transition } from '@angular/animations';
+import { FormControl, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-transaction',
@@ -16,11 +17,12 @@ export class TransactionComponent implements OnInit {
   filter = new TransactionFilter();
   @ViewChild('table') table: any;
 
-produits = [];
-
+  produits = [];
   schools= [];
-
   transactions = [];
+
+  transaction = new Transaction();
+
 
 
   constructor(
@@ -29,8 +31,8 @@ produits = [];
     private confirmationService: ConfirmationService) { }
 
 ngOnInit(): void {
-  this.listP();
-  this.listS();
+  this.listProduct();
+  this.listSchool();
 }
 
 list(page = 0): void{
@@ -65,12 +67,23 @@ erase(transaction: any){
 
   });
 }
-listP(): any{
+
+save(form: NgForm){
+  this.transactionService.addTransaction(this.transaction)
+  .then(()=> {
+    this.messageService.add({ severity: 'success', detail: 'Transaction ajoutée avec succès !!!'});
+    this.list();
+    form.reset();
+    this.transaction = new Transaction();
+  })
+}
+
+listProduct(): any{
  return this.transactionService.listProducts()
   .then((produits : any)=> {this.produits = produits.map((p: any) => ({label: p.name, value: p.id}))});
 }
 
-listS(): any {
+listSchool(): any {
   this.transactionService.listSchools()
   .then((schools : any)=> {this.schools = schools.map((p: any) => ({label: p.name, value: p.id}))})
 }

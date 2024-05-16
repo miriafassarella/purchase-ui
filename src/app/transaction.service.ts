@@ -2,6 +2,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { Transaction } from './core/model';
 
 
 
@@ -52,6 +53,15 @@ erase(id: number): Promise<any>{
   const headers = new HttpHeaders();
   return firstValueFrom(
     this.http.delete(`${this.transactionUrl}/${id}`, { headers })
+  )
+}
+
+addTransaction(transaction: Transaction): Promise<Transaction> {
+  const headers = new HttpHeaders()
+    .append('Content-Type', 'application/json');
+
+  return firstValueFrom(
+  this.http.post<Transaction>(this.transactionUrl, transaction, { headers })
   )
 }
 
