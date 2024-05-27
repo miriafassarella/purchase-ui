@@ -17,17 +17,26 @@ import { ToastModule } from 'primeng/toast';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 
-
 import { AppComponent } from './app.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { FormsModule } from '@angular/forms';
 import { TooltipModule } from 'primeng/tooltip';
 import { TransactionService } from './transaction.service';
+import { RouterModule, Routes } from '@angular/router';
+import { RegisterComponent } from './register/register.component';
+
+
+const routes: Routes = [
+{ path: 'transactions', component: TransactionComponent },
+{path: 'transactions/:codigo', component: RegisterComponent },
+{ path: 'transactions/new', component: RegisterComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    TransactionComponent
+    TransactionComponent,
+    RegisterComponent
 
   ],
   imports: [
@@ -45,8 +54,8 @@ import { TransactionService } from './transaction.service';
     InputNumberModule,
     HttpClientModule,
     ToastModule,
-    ConfirmDialogModule
-
+    ConfirmDialogModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [TransactionService, MessageService, ConfirmationService],
   bootstrap: [AppComponent]

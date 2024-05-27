@@ -2,8 +2,7 @@
 export class Product{
   id?: number;
   name?: String;
-  description?: String;
-  price?: number;
+
 }
 
 export class School{
@@ -14,8 +13,10 @@ export class School{
 
 export class Transaction{
   id?: number;
-  date?: Date;
+  dateRegister?: Date;
+  description?: string;
   amountProduct?: number;
+  price?: number;
   priceFinal?: number;
   product =  new Product();
   school = new School();

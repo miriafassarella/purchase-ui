@@ -4,12 +4,24 @@ body{
   margin: 0;
 }
 
+
 @media screen and (max-width: 992px) {
 body{
   margin-left: 10px;
   margin-right: 10px;
 }
 }
+
+.navbar {
+  padding: 30px 0 20px;
+  background-color: #1e94d2;
+  margin: 0 0 30px;
+
+}
+.container a{
+  text-decoration: none;
+}
+
 
 
 

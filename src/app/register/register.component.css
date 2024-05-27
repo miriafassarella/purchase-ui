@@ -1,0 +1,15 @@
+h1{
+  color: #696969;
+}
+@media screen and (min-width: 992px) {
+  .container{
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  body{
+    margin: 100px;
+  }
+}
+button{
+  margin-right: 20px;
+}

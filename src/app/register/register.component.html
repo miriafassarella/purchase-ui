@@ -1,0 +1,53 @@
+<div class="container">
+  <form ngForm #f="ngForm" (ngSubmit)="save(f)">
+    <div class="grid">
+      <div class="col-12">
+        <h1>{{editing ? 'Modification de la' : 'Nouvelle'}} Transaction</h1>
+      </div>
+
+      <div class="col-6 md:col-6 p-fluid">
+        <label>Produit</label>
+        <p-dropdown [options]="produits" placeholder="Selecione" name="produit" ngModel [required]="true" [(ngModel)]="transaction.product.id"></p-dropdown>
+      </div>
+      <div class="col-6 md:col-6 p-fluid">
+        <label>Nom Acheteur</label>
+        <p-dropdown [options]="schools" placeholder="Selecione" name="acheteur" ngModel [required]="true" [(ngModel)]="transaction.school.id"></p-dropdown>
+      </div>
+      <div class="col-12 md:col-12 p-fluid">
+        <label>Description</label>
+        <input pInputText type="text" name="description" ngModel #description="ngModel"
+        required="true" minlength="5" [(ngModel)]="transaction.description">
+        <p-message *ngIf="description.hasError('required') && description.dirty" severity="error"
+        text="Il faut informer une description"></p-message>
+
+        <p-message *ngIf="description.hasError('minlength') && description.dirty" severity="error"
+        text="Minimum de {{ description.errors?.['minlength'].requiredLength }} caractères.">
+        </p-message>
+      </div>
+      <div class="col-12 md:col-4 p-fluid">
+        <label>Quantité</label>
+        <p-inputNumber ngModel name="amount" #amount="ngModel"
+        [required]="true" [(ngModel)]="transaction.amountProduct"></p-inputNumber>
+
+        <p-message *ngIf="amount.hasError('required') && amount.dirty" severity="error"
+        text="Il faut informer la quantité de produits"></p-message>
+      </div>
+
+      <div class="col-12 md:col-4 p-fluid">
+        <label>Prix unitaire </label>
+        <p-inputNumber ngModel name="prix"  mode="decimal" [minFractionDigits]="2" #price="ngModel"
+        [required]="true" [(ngModel)]="transaction.price" placeholder="00,00"></p-inputNumber>
+
+        <p-message *ngIf="price.hasError('required') && price.dirty" severity="error"
+        text="Il faut informer le prix du produit.n"></p-message>
+      </div>
+
+      <div class="col-12">
+        <button pButton type="submit" [disabled]="!f.valid" label="Enregistrer"></button>
+        <button pButton routerLink="/transactions">Retour à la liste</button>
+        <a href="javascript:;"></a>
+      </div>
+    </div>
+  </form>
+
+</div>

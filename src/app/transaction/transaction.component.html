@@ -1,46 +1,6 @@
 <div class="container">
-  <form ngForm #f="ngForm" (ngSubmit)="save(f)">
-    <div class="grid">
-      <div class="col-12">
-        <h1>Nouvelle Transaction</h1>
-      </div>
 
-      <div class="col-6 md:col-6 p-fluid">
-        <label>Produit</label>
-        <p-dropdown [options]="produits" placeholder="Selecione" name="produit" ngModel [required]="true" [(ngModel)]="transaction.product.id"></p-dropdown>
-      </div>
-      <div class="col-6 md:col-6 p-fluid">
-        <label>Nom Acheteur</label>
-        <p-dropdown [options]="schools" placeholder="Selecione" name="acheteur" ngModel [required]="true" [(ngModel)]="transaction.school.id"></p-dropdown>
-      </div>
-      <div class="col-12 md:col-12 p-fluid">
-        <label>Description</label>
-        <input pInputText type="text" name="description" ngModel #description="ngModel"
-        required="true" minlength="5" [(ngModel)]="transaction.product.description">
-        <p-message *ngIf="description.hasError('required') && description.dirty" severity="error"
-        text="Il faut informer une description"></p-message>
-
-        <p-message *ngIf="description.hasError('minlength') && description.dirty" severity="error"
-        text="Minimum de {{ description.errors?.['minlength'].requiredLength }} caractères.">
-        </p-message>
-      </div>
-      <!--<div class="col-12 md:col-3 p-fluid">
-        <label>Total</label>
-        <p-inputNumber ngModel name="prix" ngModel  #prix="ngModel" mode="currency" currency="USD" locale="en-US" placeholder="$00.00"
-        [required]="true" [(ngModel)]="transaction.product.price"></p-inputNumber>
-
-        <p-message *ngIf="prix.hasError('required') && prix.dirty" severity="error"
-        text="Il faut informer un prix"></p-message>
-      </div>-->
-
-      <div class="col-12">
-        <button pButton type="submit" [disabled]="!f.valid" label="Enregistrer"></button>
-
-        <a href="javascript:;"></a>
-      </div>
-    </div>
-  </form>
-
+  <a pButton label="Nouvelle Transaction" routerLink="/transactions/new"></a>
   <div class="grid table">
     <div class="col-12">
         <p-table [value]="transactions" [paginator]="true"
@@ -49,9 +9,11 @@
             <ng-template pTemplate="header">
                 <tr>
                     <th>Produit</th>
-                    <th>Nom Acheteur</th>
+                    <th>Acheteur</th>
                     <th class="col-data-header">Description</th>
                     <th class="col-data-header">Prix</th>
+                    <th class="col-data-header">Total</th>
+                    <th class="col-data-header">Date</th>
                     <th class="col-valor-header"></th>
                 </tr>
             </ng-template>
@@ -67,13 +29,24 @@
                       </td>
                     <td class="col-data-content">
                       <span class="p-column-title">Description</span>
-                      {{ transaction.product.description }}
+                      {{ transaction.description }}
                     </td>
                     <td class="col-data-content">
                       <span class="p-column-title">Prix</span>
-                      {{ transaction.product.price }}
+                      {{ transaction.price | currency }}
                     </td>
+                    <td class="col-data-content">
+                      <span class="p-column-title">Total</span>
+                      {{ transaction.priceFinal | currency }}
+                    </td>
+                    <td class="col-data-content">
+                      <span class="p-column-title">Date</span>
+                      {{ transaction.dateRegister}}
+                    </td>
+
                     <td class="col-acoes">
+                      <a pButton icon="pi pi-pencil" pTooltip="Modifier" tooltipPosition="top"
+                      [routerLink]= "['/transactions', transaction.id]"></a>
                       <button pButton icon="pi pi-trash" pTooltip="Effacer" tooltipPosition="top"
                       (click)="confirmExlusion(transaction)"></button>
                     </td>

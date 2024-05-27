@@ -2,7 +2,9 @@ import { Product, School, Transaction } from './../core/model';
 import { ConfirmationService, LazyLoadEvent, MessageService } from 'primeng/api';
 import {TransactionFilter, TransactionService } from './../transaction.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl, NgForm } from '@angular/forms';
+
+import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-transaction',
@@ -28,13 +30,15 @@ export class TransactionComponent implements OnInit {
   constructor(
     private transactionService: TransactionService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private route: ActivatedRoute
+    ) { }
 
 ngOnInit(): void {
-  this.listProduct();
-  this.listSchool();
-}
 
+
+}
+/*Pertence ao componente------------------------------------------------------------------------------*/
 list(page = 0): void{
   this.filter.page = page;
   this.transactionService.list(this.filter)
@@ -67,25 +71,7 @@ erase(transaction: any){
 
   });
 }
+/*Pertence ao componente----------------------------------------------------------------------------*/
 
-save(form: NgForm){
-  this.transactionService.addTransaction(this.transaction)
-  .then(()=> {
-    this.messageService.add({ severity: 'success', detail: 'Transaction ajoutée avec succès !!!'});
-    this.list();
-    form.reset();
-    this.transaction = new Transaction();
-  })
-}
-
-listProduct(): any{
- return this.transactionService.listProducts()
-  .then((produits : any)=> {this.produits = produits.map((p: any) => ({label: p.name, value: p.id}))});
-}
-
-listSchool(): any {
-  this.transactionService.listSchools()
-  .then((schools : any)=> {this.schools = schools.map((p: any) => ({label: p.name, value: p.id}))})
-}
 
 }

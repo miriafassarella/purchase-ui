@@ -1,3 +1,4 @@
+import { transition } from '@angular/animations';
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -63,6 +64,30 @@ addTransaction(transaction: Transaction): Promise<Transaction> {
   return firstValueFrom(
   this.http.post<Transaction>(this.transactionUrl, transaction, { headers })
   )
+}
+
+update(transition: Transaction): Promise<Transaction>{
+  const headers = new HttpHeaders()
+  .append('Content-Type', 'application/json');
+
+return firstValueFrom(
+ this.http.put<Transaction>(`${this.transactionUrl}/${transition.id}`, transition, { headers })
+)
+}
+
+searchId(id: number): Promise<Transaction> {
+
+  const headers = new HttpHeaders();
+
+
+  return this.http.get(`${this.transactionUrl}/${id}`, {headers})
+  .toPromise()
+  .then((response : any) => {
+    const transaction = response;
+
+    return transaction;
+  });
+
 }
 
 listProducts(): Promise<any>{
