@@ -1,7 +1,7 @@
 # purchase-ui
 
 > [!IMPORTANT]
-> Il fault cloner la partie backend de cet application par le lien : https://github.com/miriafassarella/purchase-api, et la faire exécuter en utiilisant une IDE.  
+> Il fault cloner la partie backend de cet application par le lien : https://github.com/miriafassarella/purchase-api, et la faire exécuter en utiilisant un IDE.  
 > Il est requis l'installation de node js pour executer le projet : https://nodejs.org/en/download/prebuilt-installer/current
  - Après avoir télécharger le projet, utilisez une invite de commande pour ajouter le dossier node_modules au projet.  
    Rendu à l'interieur du projet, dans l'invite de commande, tapez la commande :   
